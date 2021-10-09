@@ -8,3 +8,4 @@ COPY . .
 RUN yarn install --production
 EXPOSE 6000
 CMD ["node", "src/index.js"]
+ef
