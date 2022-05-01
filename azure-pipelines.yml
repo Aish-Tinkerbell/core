@@ -7,9 +7,21 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: macos-11
 
 steps:
+- task: DownloadSecureFile@1
+  name: DeveloperCertificate
+  displayName: 'Download Developer Certificate'
+  inputs:
+    secureFile: '${{cfi}}_development.p12'
+- task: InstallAppleCertificate@2
+  inputs:
+    certSecureFile: '${{cfi}}_development.p12'
+    certPwd: '$(cert_passwd)'
+    keychain: 'temp'
+  displayName: 'Install Developer Certificate'
+  
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 
